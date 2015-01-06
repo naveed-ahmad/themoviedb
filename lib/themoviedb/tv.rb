@@ -54,6 +54,36 @@ module Tmdb
       search.fetch
     end
 
+    #Airing today: Get the list of TV shows that air today. Without a specified timezone, this query defaults to EST (Eastern Time UTC-05:00).
+    def self.airing_today(page=1)
+      search = Tmdb::Search.new("/tv/airing_today")
+      search.filter page: page
+      search.fetch
+    end
+
+    #Get the list of TV shows that are currently on the air. This query looks for any TV show that has an episode with an air date in the next 7 days
+    def self.on_the_air(page=1)
+      search = Tmdb::Search.new("/tv/on_the_air")
+      search.filter page: page
+      search.fetch
+    end
+
+    #Get a list of TV show ids that have been edited.
+    # By default we show the last 24 hours and only 100 items per page.
+    # The maximum number of days that can be returned in a single request is 14.
+    # You can then use the TV changes API to get the actual data that has been changed.
+    def self.latest(page=1)
+      search = Tmdb::Search.new("/tv/latest")
+      search.fetch
+    end
+
+    def self.changes(start_date, end_date, page = 1)
+      search = Tmdb::Search.new("/tv/changes")
+      search.filter page: page, start_date: start_date.strftime("%Y-%m-%d"), end_date: end_date.strftime("%Y-%m-%d")
+      search.fetch
+    end
+
+
     #Get the cast information about a TV series.
     def self.cast(id, conditions={})
       search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/credits")
