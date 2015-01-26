@@ -6,7 +6,7 @@ require 'hashugar'
   require File.join(File.dirname(__FILE__), "themoviedb", inc)
 end
 
-["movie", "tv", "season", "episode", "collection", "person", "company", "genre", "find", "job"].each do |inc|
+["movie", "tv", "season", "episode", "collection", "person", "company", "genre", "find", "job", 'list'].each do |inc|
   require File.join(File.dirname(__FILE__), "themoviedb", inc)
 end
 
