@@ -18,7 +18,12 @@ module Tmdb
       :tv_credits,
       :combined_credits,
       :images,
-      :changes
+      :changes,
+      :page,
+      :total_pages,
+      :total_results,
+      :start_date,
+      :end_date
     ]
 
     @@fields.each do |field|
@@ -77,8 +82,13 @@ module Tmdb
     #Changes are grouped by key, and ordered by date in descending order.
     #By default, only the last 24 hours of changes are returned.
     #The maximum number of days that can be returned in a single request is 14. The language is present on fields that are translatable.
-    def self.changes(id, conditions={})
-      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/changes")
+    def self.changes(id=nil, conditions={})
+      if id.present?
+        search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/changes")
+      else
+        search = Tmdb::Search.new("/person/changes")
+        search.filter(conditions)
+      end
       search.fetch_response
     end
 

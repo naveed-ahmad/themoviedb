@@ -28,11 +28,23 @@ module Tmdb
       :vote_average,
       :vote_count,
       :credits,
-      :external_ids
+      :external_ids,
+      :changes,
+      :page,
+      :total_pages,
+      :total_results,
+      :start_date,
+      :end_date
     ]
 
     @@fields.each do |field|
       attr_accessor field
+    end
+
+    #Get the latest movie id. singular
+    def self.latest
+      search = Tmdb::Search.new("/tv/latest")
+      search.fetch_response
     end
 
     #Get the list of popular TV shows. This list refreshes every day.
@@ -108,5 +120,20 @@ module Tmdb
       search.fetch_response
     end
 
+    #Get the videos (trailers etc) for a TV series.
+    def self.videos(id, conditions={})
+      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/videos")
+      search.fetch_response
+    end
+
+    def self.changes(id=nil, conditions={})
+      if id.present?
+        search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/changes")
+      else
+        search = Tmdb::Search.new("/tv/changes")
+        search.filter(conditions)
+      end
+      search.fetch_response
+    end
   end
 end

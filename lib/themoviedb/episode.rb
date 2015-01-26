@@ -2,6 +2,33 @@ module Tmdb
   class Episode < Resource
     has_resource 'episode', :plural => 'episodes'
 
+    @@fields = [
+      :air_date,
+      :episode_number,
+      :name,
+      :overview,
+      :id,
+      :production_code,
+      :season_number,
+      :still_path,
+      :vote_average,
+      :vote_count,
+      :changes,
+      :credits,
+      :external_ids,
+      :images,
+      :videos,
+      :page,
+      :total_pages,
+      :total_results,
+      :start_date,
+      :end_date
+    ]
+
+    @@fields.each do |field|
+      attr_accessor field
+    end
+
     #Get the primary information about a TV episode by combination of a season and episode number.
     def self.detail(id, season, episode, conditions={})
       search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/season/#{self.endpoint_id + season.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + episode.to_s}")
@@ -30,6 +57,12 @@ module Tmdb
     #Get the images (episode stills) for a TV episode by combination of a season and episode number.
     def self.images(id, season, episode, conditions={})
       search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/season/#{self.endpoint_id + season.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + episode.to_s}/images")
+      search.fetch_response
+    end
+
+    #Get the videos (teasers etc) for a TV episode by combination of a season and episode number.
+    def self.videos(id, season, episode, conditions={})
+      search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/season/#{self.endpoint_id + season.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + episode.to_s}/videos")
       search.fetch_response
     end
 

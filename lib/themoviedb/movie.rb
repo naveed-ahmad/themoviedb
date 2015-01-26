@@ -36,7 +36,12 @@ module Tmdb
       :translations,
       :reviews,
       :lists,
-      :changes
+      :changes,
+      :page,
+      :total_pages,
+      :total_results,
+      :start_date,
+      :end_date
     ]
 
     @@fields.each do |field|
@@ -146,8 +151,16 @@ module Tmdb
     #By default, only the last 24 hours of changes are returned.
     #The maximum number of days that can be returned in a single request is 14.
     #The language is present on fields that are translatable.
-    def self.changes(id, conditions={})
-      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/changes")
+    #
+    #If no id passed, will grab list of all movies udpated over the last 24 hours (default)
+    #Accepts conditions: page, start_date, end_date
+    def self.changes(id=nil, conditions={})
+      if id.present?
+        search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/changes")
+      else
+        search = Tmdb::Search.new("/movie/changes")
+        search.filter(conditions)
+      end
       search.fetch_response
     end
 

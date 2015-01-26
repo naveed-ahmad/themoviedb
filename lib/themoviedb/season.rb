@@ -2,6 +2,30 @@ module Tmdb
   class Season < Resource
     has_resource 'season', :plural => 'seasons'
 
+    @@fields = [
+      :air_date,
+      :episodes,
+      :name,
+      :overview,
+      :id,
+      :poster_path,
+      :season_number,
+      :credits,
+      :external_ids,
+      :images,
+      :videos,
+      :changes,
+      :page,
+      :total_pages,
+      :total_results,
+      :start_date,
+      :end_date
+    ]
+
+    @@fields.each do |field|
+      attr_accessor field
+    end
+
     #Get the primary information about a TV season by its season number.
     def self.detail(id, season, conditions={})
       search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + season.to_s}")
@@ -30,6 +54,12 @@ module Tmdb
     #Get the images (posters) that we have stored for a TV season by season number.
     def self.images(id, season, conditions={})
       search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + season.to_s}/images")
+      search.fetch_response
+    end
+
+    #Get the videos (teasers etc) that we have stored for a TV season by season number.
+    def self.videos(id, season, conditions={})
+      search = Tmdb::Search.new("/tv/#{self.endpoint_id + id.to_s}/#{self.endpoints[:singular]}/#{self.endpoint_id + season.to_s}/videos")
       search.fetch_response
     end
 
