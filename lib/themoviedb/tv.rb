@@ -41,12 +41,6 @@ module Tmdb
       attr_accessor field
     end
 
-    #Get the latest movie id. singular
-    def self.latest
-      search = Tmdb::Search.new("/tv/latest")
-      search.fetch_response
-    end
-
     #Get the list of popular TV shows. This list refreshes every day.
     def self.popular
       search = Tmdb::Search.new("/tv/popular")
@@ -70,6 +64,7 @@ module Tmdb
     def self.airing_today(page=1)
       search = Tmdb::Search.new("/tv/airing_today")
       search.filter page: page
+
       search.fetch
     end
 
@@ -77,15 +72,15 @@ module Tmdb
     def self.on_the_air(page=1)
       search = Tmdb::Search.new("/tv/on_the_air")
       search.filter page: page
+
       search.fetch
     end
 
-    #Get a list of TV show ids that have been edited.
-    # By default we show the last 24 hours and only 100 items per page.
-    # The maximum number of days that can be returned in a single request is 14.
-    # You can then use the TV changes API to get the actual data that has been changed.
+    #Get a list of latest TV show ids
     def self.latest(page=1)
       search = Tmdb::Search.new("/tv/latest")
+      search.filter page: page
+
       search.fetch
     end
 
