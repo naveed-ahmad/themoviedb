@@ -139,6 +139,7 @@ module Tmdb
     #Get the translations for a specific movie id.
     def self.translations(id, conditions={})
       search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/translations")
+
       search.fetch_response
     end
 

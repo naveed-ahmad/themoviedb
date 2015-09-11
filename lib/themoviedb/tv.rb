@@ -130,5 +130,17 @@ module Tmdb
       end
       search.fetch_response
     end
+
+    #Get the plot keywords for a specific TV series.
+    def self.keywords(id, conditions={})
+      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/keywords")
+      search.fetch_response
+    end
+
+    #Get the alternative titles for a specific TV series.
+    def self.alternative_titles(id, conditions={})
+      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/alternative_titles")
+      search.fetch_response
+    end
   end
 end
