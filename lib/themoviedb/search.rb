@@ -1,4 +1,8 @@
 module Tmdb
+  class RatelimitException < Exception
+
+  end
+
   class Search
     def initialize(resource=nil)
       @params = {}
@@ -67,7 +71,18 @@ module Tmdb
       else
         options = @params.merge(Api.config)
       end
-      response = Api.get(@resource, :query => options)
+
+      begin
+        response = Api.get(@resource, query: options)
+
+        if response['status_code'] == 25 # request rate limit exceed
+          raise RatelimitException.new response['status_message']
+        end
+      rescue RatelimitException => e
+        puts "#{e.message} - Sleeping for ONE second "
+        sleep 1
+        retry
+      end
 
       original_etag = response.headers.fetch('etag', '')
       etag = original_etag.gsub(/"/, '')
