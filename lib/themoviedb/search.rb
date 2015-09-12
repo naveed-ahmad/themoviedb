@@ -79,8 +79,8 @@ module Tmdb
           raise RatelimitException.new response['status_message']
         end
       rescue RatelimitException => e
-        puts "#{e.message} - Sleeping for ONE second "
-        sleep 1
+        puts "#{e.message} - Sleeping for FIVE second "
+        sleep 5
         retry
       end
 
