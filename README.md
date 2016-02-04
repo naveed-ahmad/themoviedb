@@ -1,6 +1,6 @@
 ## Information
 
-### themoviedb [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ahmetabdi/themoviedb/trend.png)](https://bitdeli.com/free "Bitdeli Badge") [![Build Status](https://travis-ci.org/ahmetabdi/themoviedb.png?branch=master)](https://travis-ci.org/ahmetabdi/themoviedb) [![Gem Version](https://badge.fury.io/rb/themoviedb.png)](http://badge.fury.io/rb/themoviedb)
+### themoviedb [![Code Climate](https://codeclimate.com/github/ahmetabdi/themoviedb/badges/gpa.svg)](https://codeclimate.com/github/ahmetabdi/themoviedb) [![Build Status](https://travis-ci.org/ahmetabdi/themoviedb.png?branch=master)](https://travis-ci.org/ahmetabdi/themoviedb) [![Gem Version](https://badge.fury.io/rb/themoviedb.png)](http://badge.fury.io/rb/themoviedb)
 
 A Ruby wrapper for the [The Movie Database API](http://docs.themoviedb.apiary.io/).
 
@@ -12,8 +12,8 @@ Get your API key [here](https://www.themoviedb.org/account).
 
 ## Getting started
 
-```ruby
-gem install themoviedb
+```bash
+$ gem install themoviedb
 ```
 
 Example usage of the 'themovedb' gem

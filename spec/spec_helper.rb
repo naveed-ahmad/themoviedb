@@ -8,17 +8,16 @@
 require_relative '../lib/themoviedb.rb'
 require 'vcr'
 
-Tmdb::Api.key("8a221fc31fcdf12a8af827465574ffc9")
+Tmdb::Api.key('8a221fc31fcdf12a8af827465574ffc9')
 
 VCR.configure do |c|
-  #the directory where your cassettes will be saved
+  # the directory where your cassettes will be saved
   c.cassette_library_dir = 'spec/vcr'
   # your HTTP request service. You can also use fakeweb, webmock, and more
   c.hook_into :webmock
 end
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 
