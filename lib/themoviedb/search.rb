@@ -80,10 +80,10 @@ module Tmdb
 
       if response.code == 429
         response_meta['retry_after'] = response.headers.fetch( 'Retry-After' ).to_i
-      else
-        response_meta['rate_limit'] = response.headers.fetch( 'X-RateLimit-Limit' ).to_i
-        response_meta['rate_limit_remaining'] = response.headers.fetch( 'X-RateLimit-Remaining' ).to_i
-        response_meta['rate_limit_reset'] = response.headers.fetch( 'X-RateLimit-Reset' ).to_i
+      elsif
+        response_meta['rate_limit'] = response.headers.fetch( 'X-RateLimit-Limit', '')
+        response_meta['rate_limit_remaining'] = response.headers.fetch( 'X-RateLimit-Remaining', '')
+        response_meta['rate_limit_reset'] = response.headers.fetch( 'X-RateLimit-Reset', '' )
       end
 
       Api.set_response( response_meta )
