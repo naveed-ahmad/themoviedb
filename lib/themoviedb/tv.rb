@@ -108,6 +108,12 @@ module Tmdb
       search.fetch_response
     end
 
+    #Get the content ratings for a specific TV show id.
+    def self.content_ratings(id, _conditions ={})
+      search = Tmdb::Search.new("/#{endpoints[:singular]}/#{endpoint_id + id.to_s}/content_ratings")
+      search.fetch_response
+    end
+
     #Get the videos (trailers etc) for a TV series.
     def self.videos(id, conditions={})
       search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/videos")
