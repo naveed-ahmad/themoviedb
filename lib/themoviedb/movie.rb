@@ -55,14 +55,18 @@ module Tmdb
     end
 
     # Get the list of upcoming movies. This list refreshes every day. The maximum number of items this list will include is 100.
-    def self.upcoming
+    def self.upcoming(conditions = {page: 1})
       search = Tmdb::Search.new('/movie/upcoming')
+      search.filter conditions
+
       search.fetch.collect { |result| new(result) }
     end
 
     # Get the list of movies playing in theatres. This list refreshes every day. The maximum number of items this list will include is 100.
-    def self.now_playing
+    def self.now_playing(conditions = {page: 1})
       search = Tmdb::Search.new('/movie/now_playing')
+      search.filter conditions
+
       search.fetch.collect { |result| new(result) }
     end
 
