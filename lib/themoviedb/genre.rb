@@ -27,8 +27,13 @@ module Tmdb
       alias find search
     end
 
-    def self.list
-      search = Tmdb::Search.new('/genre/list')
+    def self.movie_genre_list
+      search = Tmdb::Search.new('/genre/movie/list')
+      search.fetch_response
+    end
+    
+    def self.tv_genre_list
+      search = Tmdb::Search.new('/genre/tv/list')
       search.fetch_response
     end
 
