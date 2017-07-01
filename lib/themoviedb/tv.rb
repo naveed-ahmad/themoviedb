@@ -141,5 +141,11 @@ module Tmdb
       search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/alternative_titles")
       search.fetch_response
     end
+
+    # Get the translations for a specific series.
+    def self.translations(id, _conditions = {})
+      search = Tmdb::Search.new("/#{self.endpoints[:singular]}/#{self.endpoint_id + id.to_s}/translations")
+      search.fetch_response
+    end
   end
 end
