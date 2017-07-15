@@ -33,6 +33,7 @@ module Tmdb
       :keywords,
       :releases,
       :trailers,
+      :videos,
       :translations,
       :reviews,
       :lists,
@@ -129,6 +130,11 @@ module Tmdb
     # Get the trailers for a specific movie id.
     def self.trailers(id, _conditions = {})
       search = Tmdb::Search.new("/#{endpoints[:singular]}/#{endpoint_id + id.to_s}/trailers")
+      search.fetch_response
+    end
+    
+    def self.videos(id, _conditions = {} )
+       search = Tmdb::Search.new("/#{endpoints[:singular]}/#{endpoint_id + id.to_s}/videos")
       search.fetch_response
     end
 
