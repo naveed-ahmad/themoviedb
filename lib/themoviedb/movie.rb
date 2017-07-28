@@ -42,7 +42,8 @@ module Tmdb
       :total_pages,
       :total_results,
       :start_date,
-      :end_date
+      :end_date, 
+      :release_dates
     ]
 
     @@fields.each do |field|
@@ -123,7 +124,14 @@ module Tmdb
 
     # Get the release date by country for a specific movie id.
     def self.releases(id, _conditions = {})
+      #Deperacted 
       search = Tmdb::Search.new("/#{endpoints[:singular]}/#{endpoint_id + id.to_s}/releases")
+      search.fetch_response
+    end
+    
+    #Get the release date(regional) along with the certification for a movie.
+    def self.release_dates(id, _conditions = {})
+      search = Tmdb::Search.new("/#{endpoints[:singular]}/#{endpoint_id + id.to_s}/release_dates")
       search.fetch_response
     end
 
