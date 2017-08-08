@@ -39,7 +39,7 @@ module Tmdb
     def self.detail(id, conditions = {})
             search = Tmdb::Search.new("/#{endpoints[:singular]}/#{id}")
       search.filter(conditions)
-      new search.fetch_response
+      search.fetch_response
     end
     
     # Get the list of popular people on The Movie Database. This list refreshes every day.
