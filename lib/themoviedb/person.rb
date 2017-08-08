@@ -26,7 +26,8 @@ module Tmdb
       :start_date,
       :end_date,
       :external_ids,
-      :tagged_images
+      :tagged_images,
+      :imdb_id
     ]
 
     @@fields.each do |field|
@@ -34,6 +35,7 @@ module Tmdb
     end
 
     # Get the primary person details by id.
+    # https://developers.themoviedb.org/3/people/get-person-details
     def self.detail(id, conditions = {})
             search = Tmdb::Search.new("/#{endpoints[:singular]}/#{id}")
       search.filter(conditions)
