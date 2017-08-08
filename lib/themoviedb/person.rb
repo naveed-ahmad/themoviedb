@@ -24,13 +24,22 @@ module Tmdb
       :total_pages,
       :total_results,
       :start_date,
-      :end_date
+      :end_date,
+      :external_ids,
+      :tagged_images
     ]
 
     @@fields.each do |field|
       attr_accessor field
     end
 
+    # Get the primary person details by id.
+    def self.detail(id, conditions = {})
+            search = Tmdb::Search.new("/#{endpoints[:singular]}/#{id}")
+      search.filter(conditions)
+      new search.fetch_response
+    end
+    
     # Get the list of popular people on The Movie Database. This list refreshes every day.
     def self.popular(page=1)
       search = Tmdb::Search.new("/#{endpoints[:singular]}/popular")
